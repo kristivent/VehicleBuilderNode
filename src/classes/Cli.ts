@@ -408,7 +408,7 @@ class Cli {
             const vehicle = this.vehicles[i];
             if (vehicle instanceof Truck) {
               this.findVehicleToTow(vehicle).then(() => {
-                return;
+                return this.performActions;
               });
             } else {
               console.log('Selected vehicle is not a truck. Cannot perform towing.');
