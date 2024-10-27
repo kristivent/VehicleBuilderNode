@@ -301,9 +301,11 @@ class Cli {
           if (selectedVehicle.vin === truck.vin) {
             // TODO: if it is, log that the truck cannot tow itself then perform actions on the truck to allow the user to select another action
             console.log("A truck cannot tow itself.");
+            return this.performActions();
             // TODO: if it is not, tow the selected vehicle then perform actions on the truck to allow the user to select another action
           } else {
             truck.tow(selectedVehicle);
+            return this.performActions();
           }
           resolve();
         })
@@ -316,7 +318,7 @@ class Cli {
 
   // method to perform actions on a vehicle
   async performActions(): Promise<void> {
-    const answers = await inquirer.prompt([
+    const answers = inquirer.prompt([
       {
         type: 'list',
         name: 'action',
@@ -400,15 +402,16 @@ class Cli {
         // TODO: add statements to perform the tow action only if the selected vehicle is a truck. Call the findVehicleToTow method to find a vehicle to tow and pass the selected truck as an argument. After calling the findVehicleToTow method, you will need to return to avoid instantly calling the performActions method again since findVehicleToTow is asynchronous.
         // TODO: add statements to perform the wheelie action only if the selected vehicle is a motorbike
         // Perform the tow action only if the selected vehicle is a truck
-        else if (answers.action === 'Tow') {
+        if (answers.action === 'Tow') {
           for (let i = 0; i < this.vehicles.length; i++) {
             if (this.vehicles[i].vin === this.selectedVehicleVin) {
               const vehicle = this.vehicles[i];
               if (vehicle instanceof Truck) {
                 this.findVehicleToTow(vehicle);
-                return this.performActions();
+                return;
               } else {
                 console.log('Selected vehicle is not a truck. Cannot perform towing.');
+                return;
               }
             }
           }
