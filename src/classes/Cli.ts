@@ -301,11 +301,11 @@ class Cli {
       if (selectedVehicle.vin === truck.vin) {
         // TODO: if it is, log that the truck cannot tow itself then perform actions on the truck to allow the user to select another action
         console.log("A truck cannot tow itself.");
-        this.performActions();  
+        resolve();
         // TODO: if it is not, tow the selected vehicle then perform actions on the truck to allow the user to select another action
       } else {
         truck.tow(selectedVehicle);
-        this.performActions();  
+        resolve();  
       }
 })
       .catch((error) => {
@@ -316,8 +316,8 @@ class Cli {
 }
 
   // method to perform actions on a vehicle
-  performActions(): void {
-    inquirer
+  performActions(): Promise<void> {
+    return inquirer
       .prompt([
         {
           type: 'list',
@@ -408,7 +408,7 @@ class Cli {
             const vehicle = this.vehicles[i];
             if (vehicle instanceof Truck) {
               this.findVehicleToTow(vehicle).then(() => {
-                return this.performActions;
+                return this.performActions();
               });
             } else {
               console.log('Selected vehicle is not a truck. Cannot perform towing.');
@@ -438,8 +438,9 @@ class Cli {
         }
         if (!this.exit) {
           // if the user does not want to exit, perform actions on the selected vehicle
-          this.performActions();
+          return this.performActions();
         }
+        return Promise.resolve();
       });
   }
 
