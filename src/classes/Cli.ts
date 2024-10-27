@@ -316,8 +316,8 @@ class Cli {
 }
 
   // method to perform actions on a vehicle
-  performActions(): Promise<void> {
-    return inquirer
+  async performActions(): Promise<void> {
+    const answers = await inquirer
       .prompt([
         {
           type: 'list',
