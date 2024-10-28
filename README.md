@@ -29,5 +29,5 @@
 
   ## Questions
   For any questions, please reach out via GitHub [kristivent](https://github.com/kristivent) or email at ventk84@gmail.com.
-  Link to video: h
+  Link to video: https://drive.google.com/file/d/1Cm-923eqKuHphU24Sx3zjP6vL44q2lWn/view?usp=sharing
   Source code from original project module on BootcampSpot/GitLab repo; additional Google searches and BootcampSpot Xpert Learning Assistant AI used for troubleshooting selectVehicleToTow and performActions sections.
